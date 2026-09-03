@@ -2,41 +2,22 @@ function searchGoogle() {
 
     const search = document.getElementById("search").value.trim();
 
-    if (search === "") {
-        return;
-    }
+    if (search === "") return;
 
     const url =
         "https://www.google.com/search?q=" +
         encodeURIComponent(search);
 
-    window.open(url, "_blank");
-
-}
-
-
-function openExternal(url) {
-
-    window.open(
-        url,
-        "_blank",
-        "noopener"
-    );
-
+    openInside(url);
 }
 
 
 function openWebsite() {
 
-    let value =
-        document.getElementById("url").value.trim();
+    let value = document.getElementById("url").value.trim();
 
-    if (value === "") {
-        return;
-    }
+    if (value === "") return;
 
-
-    // إذا كتب المستخدم كلمة بدلاً من رابط
     if (!value.startsWith("http://") &&
         !value.startsWith("https://")) {
 
@@ -50,16 +31,35 @@ function openWebsite() {
             value =
                 "https://www.google.com/search?q=" +
                 encodeURIComponent(value);
-
         }
-
     }
 
+    openInside(value);
+}
 
-    window.open(
-        value,
-        "_blank",
-        "noopener"
-    );
 
+function openInside(url) {
+
+    const old = document.getElementById("browserFrame");
+
+    if (old) old.remove();
+
+    const frame = document.createElement("iframe");
+
+    frame.id = "browserFrame";
+    frame.src = url;
+
+    frame.style.cssText = `
+        position: fixed;
+        top: 100px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 100px);
+        border: none;
+        background: white;
+    `;
+
+    document.body.appendChild(frame);
+
+    document.getElementById("url").value = url;
 }
