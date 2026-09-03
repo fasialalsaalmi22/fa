@@ -9,6 +9,7 @@ function searchGoogle() {
     );
 }
 
+
 function openWebsite() {
     let url = document.getElementById("url").value.trim();
 
@@ -29,25 +30,61 @@ function openWebsite() {
     openInside(url);
 }
 
+
 function openInside(url) {
+
+    const home = document.querySelector(".home");
+
+    // إخفاء الصفحة الرئيسية
+    home.style.display = "none";
+
+
     let frame = document.getElementById("browserFrame");
 
+    // إنشاء الإطار إذا لم يكن موجودًا
     if (!frame) {
+
         frame = document.createElement("iframe");
+
         frame.id = "browserFrame";
 
-        frame.style.position = "fixed";
-        frame.style.top = "99px";
-        frame.style.left = "0";
-        frame.style.width = "100%";
-        frame.style.height = "calc(100vh - 99px)";
-        frame.style.border = "none";
-        frame.style.background = "white";
+        frame.allow =
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
-        document.body.appendChild(frame);
+        frame.allowFullscreen = true;
+
+        document.querySelector(".browser").appendChild(frame);
     }
+
 
     frame.src = url;
 
     document.getElementById("url").value = url;
+}
+
+
+function goHome() {
+
+    const frame =
+        document.getElementById("browserFrame");
+
+    if (frame) {
+        frame.remove();
+    }
+
+    document.querySelector(".home").style.display =
+        "flex";
+
+    document.getElementById("url").value = "";
+}
+
+
+function reloadPage() {
+
+    const frame =
+        document.getElementById("browserFrame");
+
+    if (frame) {
+        frame.src = frame.src;
+    }
 }
