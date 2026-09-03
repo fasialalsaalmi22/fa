@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>RT3 Browser</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="browser">
+
+    <!-- التبويبات -->
+    <div class="tabs">
+
+      <div class="tab active">
+        🌐
+        <span>صفحة جديدة</span>
+        <button>×</button>
+      </div>
+
+      <button class="new-tab">+</button>
+
+    </div>
+
+
+    <!-- شريط الأدوات -->
+    <div class="toolbar">
+
+      <button>←</button>
+      <button>→</button>
+      <button>↻</button>
+      <button>⌂</button>
+
+      <div class="address">
+
+        🔒
+
+        <input
+          id="url"
+          type="text"
+          placeholder="ابحث في Google أو اكتب عنوان موقع"
+        >
+
+      </div>
+
+      <button onclick="openWebsite()">➜</button>
+
+    </div>
+
+
+    <!-- الصفحة الرئيسية -->
+    <main class="home">
+
+      <div class="logo">
+        <span>RT</span><b>3</b>
+      </div>
+
+      <h1>RT3 Browser</h1>
+
+      <p>
+        متصفح ويب بسيط وسريع
+      </p>
+
+
+      <!-- البحث -->
+      <div class="search">
+
+        🔍
+
+        <input
+          id="search"
+          type="text"
+          placeholder="ابحث في Google..."
+          onkeydown="if(event.key === 'Enter') searchGoogle()"
+        >
+
+        <button onclick="searchGoogle()">
+          بحث
+        </button>
+
+      </div>
+
+
+      <!-- الاختصارات -->
+      <div class="shortcuts">
+
+        <button onclick="openExternal('https://www.google.com')">
+          Google
+        </button>
+
+        <button onclick="openExternal('https://www.youtube.com')">
+          YouTube
+        </button>
+
+        <button onclick="openExternal('https://www.wikipedia.org')">
+          Wikipedia
+        </button>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
