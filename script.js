@@ -1,65 +1,53 @@
 function searchGoogle() {
+    const q = document.getElementById("search").value.trim();
 
-    const search = document.getElementById("search").value.trim();
+    if (!q) return;
 
-    if (search === "") return;
-
-    const url =
+    openInside(
         "https://www.google.com/search?q=" +
-        encodeURIComponent(search);
+        encodeURIComponent(q)
+    );
+}
+
+function openWebsite() {
+    let url = document.getElementById("url").value.trim();
+
+    if (!url) return;
+
+    if (!url.startsWith("http://") &&
+        !url.startsWith("https://")) {
+
+        if (url.includes(".") && !url.includes(" ")) {
+            url = "https://" + url;
+        } else {
+            url =
+                "https://www.google.com/search?q=" +
+                encodeURIComponent(url);
+        }
+    }
 
     openInside(url);
 }
 
+function openInside(url) {
+    let frame = document.getElementById("browserFrame");
 
-function openWebsite() {
+    if (!frame) {
+        frame = document.createElement("iframe");
+        frame.id = "browserFrame";
 
-    let value = document.getElementById("url").value.trim();
+        frame.style.position = "fixed";
+        frame.style.top = "99px";
+        frame.style.left = "0";
+        frame.style.width = "100%";
+        frame.style.height = "calc(100vh - 99px)";
+        frame.style.border = "none";
+        frame.style.background = "white";
 
-    if (value === "") return;
-
-    if (!value.startsWith("http://") &&
-        !value.startsWith("https://")) {
-
-        if (value.includes(".") &&
-            !value.includes(" ")) {
-
-            value = "https://" + value;
-
-        } else {
-
-            value =
-                "https://www.google.com/search?q=" +
-                encodeURIComponent(value);
-        }
+        document.body.appendChild(frame);
     }
 
-    openInside(value);
-}
-
-
-function openInside(url) {
-
-    const old = document.getElementById("browserFrame");
-
-    if (old) old.remove();
-
-    const frame = document.createElement("iframe");
-
-    frame.id = "browserFrame";
     frame.src = url;
-
-    frame.style.cssText = `
-        position: fixed;
-        top: 100px;
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 100px);
-        border: none;
-        background: white;
-    `;
-
-    document.body.appendChild(frame);
 
     document.getElementById("url").value = url;
 }
